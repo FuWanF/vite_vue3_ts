@@ -1,10 +1,6 @@
 <template>
-  <div class="test">用户名:{{ mainStore.name }}<br />长度:{{ mainStore.nameLength }}</div>
-  <hr />
-  <button @click="updateName">修改store中的name</button>
-  <hr />
-
-  <n-button>naive-ui</n-button>
+  <div class="test">秘密: {{ mainStore.name }}</div>
+  <button @click="updateName">点击告诉你一个秘密</button>
 </template>
 
 <script setup lang="ts">
@@ -15,7 +11,7 @@ const mainStore = useMainStore()
 
 const updateName = () => {
   mainStore.$patch({
-    name: '名称被修改了,nameLength也随之改变了',
+    name: '爱你哦 ♥️',
   })
 }
 </script>
