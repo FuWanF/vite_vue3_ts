@@ -1,6 +1,6 @@
 <template>
-  <div class="test">秘密: {{ mainStore.name }}</div>
-  <button @click="updateName">点击告诉你一个秘密</button>
+  <div class="test">{{ mainStore.name }}</div>
+  <button @click="updateName">321</button>
 </template>
 
 <script setup lang="ts">
@@ -11,7 +11,7 @@ const mainStore = useMainStore()
 
 const updateName = () => {
   mainStore.$patch({
-    name: '爱你哦 ♥️',
+    name: '111',
   })
 }
 </script>
