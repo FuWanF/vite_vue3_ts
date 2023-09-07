@@ -37,8 +37,11 @@ export default defineComponent({
     onMounted(() => {
       // 这里获取dom值要写.value
       console.log(text.value, textP.value, reactiveData)
-      setInterval(() => {
+      const timer = setInterval(() => {
         reactiveData.value += 1
+        if (reactiveData.value >= 3) {
+          clearInterval(timer)
+        }
       }, 1000)
     })
     // 需要返回，暴露给渲染层
