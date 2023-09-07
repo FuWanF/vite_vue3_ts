@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import path from 'path'
 //@ts-ignore
 import viteCompression from 'vite-plugin-compression'
@@ -9,6 +10,8 @@ export default defineConfig({
   base: './', //打包路径
   plugins: [
     vue(),
+    // 支持jsx
+    vueJsx(),
     // gzip压缩 生产环境生成 .gz 文件
     viteCompression({
       verbose: true,

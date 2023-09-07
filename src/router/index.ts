@@ -5,6 +5,7 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'Login',
     component: () => import('@/pages/login/Login.vue'),
+    redirect: '/index',
   },
   {
     path: '/index',
