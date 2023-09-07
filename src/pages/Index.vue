@@ -1,13 +1,24 @@
 <template>
   <div class="index-page">
-    <div class="index-page-count">
-      <n-button @click="handleCountChange"> + </n-button>
-      <div>count: {{ count }}</div>
-      <div>notRef: {{ notRef }}</div>
+    <div class="index-page-item">
+      <div class="title">ref</div>
+      <div class="body red-count">
+        <n-button @click="handleCountChange('down')"> — </n-button>
+        <div style="margin: 0 8px">count: {{ count }}</div>
+        <div style="margin: 0 8px">notRef: {{ notRef }}</div>
+        <n-button @click="handleCountChange('up')"> ➕ </n-button>
+      </div>
     </div>
-    <div class="index-page-dropdown">
+    <div class="index-page-item">
+      <div class="title">组件</div>
       <!-- 组件内是 ref toref的用法，以及实现父子组件传值通信 -->
-      <select-dropdown title="下拉选择器" @update="handleSelect"></select-dropdown>
+      <div class="body">
+        <div class="title">父子通信</div>
+        <select-parent></select-parent>
+
+        <div class="title">defineComponent</div>
+        <define-component component-name="define-component"></define-component>
+      </div>
     </div>
   </div>
 </template>
@@ -15,14 +26,25 @@
 <script setup lang="ts">
 import { NButton, NDropdown } from 'naive-ui'
 import { ref, unref, isRef, onMounted } from 'vue'
-// SelectDropdown 组件引用必须大驼峰
-import SelectDropdown from '@/components/selectDropdown.vue'
+// SelectParent 组件引用必须大驼峰
+import SelectParent from '@/components/selectParent.vue'
+import DefineComponent from '@/components/defineComponent.jsx'
 const count = ref(0)
 let notRef = 0
 
 onMounted(() => {
   handleRefLog()
 })
+
+function handleCountChange(type) {
+  if (type === 'up') {
+    count.value += 1
+    notRef += 1
+  } else if (count.value > 0) {
+    count.value -= 1
+    notRef -= 1
+  }
+}
 
 function handleRefLog() {
   // https://blog.csdn.net/glorydx/article/details/115645277 vue 3.0 Refs详解合集
@@ -33,15 +55,31 @@ function handleRefLog() {
   // unref 如果参数是ref，则返回内部值，否则返回参数本身。 => isRef(val) ? val.value : val
   window.console.log('count:', count, 'unref:', unref(count))
 }
-
-const handleCountChange = () => {
-  count.value += 1
-  notRef += 1
-}
-function handleSelect(key: string) {
-  window.console.log('接受子组件：', key)
-}
 </script>
 
 <style lang="scss" scoped>
+.index-page {
+  padding: 20px;
+  &-item {
+    margin-bottom: 20px;
+    background: #f1f1f1;
+    .title {
+      font-size: 18px;
+      background: #ccc;
+      text-indent: 10px;
+    }
+    .body {
+      padding: 0 10px;
+      &.red-count {
+        display: flex;
+        align-items: center;
+      }
+      .title {
+        font-size: 14px;
+        background: #dfdfdf;
+        margin: 4px 0;
+      }
+    }
+  }
+}
 </style>
